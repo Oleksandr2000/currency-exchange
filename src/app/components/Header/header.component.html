@@ -1,0 +1,21 @@
+<header class="bg-slate-300 border-b-2 border-gray-400">
+  <div
+    class="h-16 container m-auto py-2 flex flex-col-reverse items-center justify-between px-8 md:flex-row"
+  >
+    <div class="w-64 flex justify-between items-center">
+      <div class="font-bold text-xl">
+        EUR:
+        <span class="text-red-900">
+          {{ eur | currency: "EUR":true }}
+        </span>
+      </div>
+      <div class="font-bold text-xl">
+        USD:
+        <span class="text-red-900">
+          {{ usd | currency: "USD":true }}
+        </span>
+      </div>
+    </div>
+    <h1 class="font-bold text-xl">Currency Exchange</h1>
+  </div>
+</header>

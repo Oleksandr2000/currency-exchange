@@ -1,0 +1,13 @@
+<select
+  [name]="name"
+  class="w-full h-8 bg-slate-500"
+  [id]="name"
+  (change)="changeValue($event)"
+>
+  <option
+    *ngFor="let currency of currencyList; let i = index"
+    [value]="currency.rate"
+  >
+    {{ currency.txt }}
+  </option>
+</select>
