@@ -7,6 +7,8 @@ import { HeaderComponent } from './components/Header/header.component';
 import { InputComponent } from './components/Input/input.component';
 import { SelectComponent } from './components/Select/select.component';
 import { CurrencyService } from './services/currency.service';
+import { CryptoService } from './services/crypto.service';
+import { BoardComponent } from './components/Board/board.component';
 
 @NgModule({
   declarations: [
@@ -14,9 +16,10 @@ import { CurrencyService } from './services/currency.service';
     HeaderComponent,
     InputComponent,
     SelectComponent,
+    BoardComponent,
   ],
   imports: [BrowserModule, HttpClientModule],
-  providers: [CurrencyService, HttpClient],
+  providers: [CurrencyService, CryptoService, HttpClient],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

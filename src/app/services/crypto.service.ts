@@ -1,24 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { delay, Observable } from 'rxjs';
-
-export interface CurrencyRate {
-  r030?: number;
-  txt: string;
-  rate: number;
-  cc?: string;
-  exchangedate?: string;
-}
+import { Observable, delay } from 'rxjs';
+import { CurrencyRate } from './currency.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CurrencyService {
+export class CryptoService {
   constructor(private http: HttpClient) {}
   getAll(): Observable<CurrencyRate[]> {
     return this.http
       .get<CurrencyRate[]>(
-        'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json'
+        'https://rest.coinapi.io/v1/assets?apikey=8381b5ba-002e-4a86-8e72-7ae91fbb3306&filter_asset_id=BTC,ETH,XRP,ETC,SOL,DOT'
       )
       .pipe(delay(1000));
   }

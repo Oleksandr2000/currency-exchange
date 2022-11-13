@@ -1,36 +1,11 @@
 <app-header [eur]="eurCurrentRate" [usd]="usdCurrentRate"></app-header>
-<p *ngIf="loading; else loaded" class="text-center text-xl mt-92">Loading...</p>
-<ng-template #loaded>
-  <div class="container mx-auto flex justify-between">
-    <div class="w-full mx-4 flex flex-row">
-      <div class="w-1/2 mx-4 my-6">
-        <custom-input
-          [type]="'number'"
-          [name]="'First Currency'"
-          [value]="firstCurrencyValue"
-          (outChangeValue)="saveFirstValue($event)"
-        ></custom-input>
-        <custom-select
-          name="currency"
-          [currencyList]="data"
-          [value]="secondCurrency"
-          (outChangeValue)="saveFirstCurrency($event)"
-        ></custom-select>
-      </div>
-      <div class="w-1/2 mx-4 my-6">
-        <custom-input
-          [type]="'number'"
-          [name]="'Second Currency'"
-          [value]="secondCurrencyValue"
-          (outChangeValue)="saveSecondValue($event)"
-        ></custom-input>
-        <custom-select
-          name="currency"
-          [currencyList]="data"
-          [value]="secondCurrency"
-          (outChangeValue)="saveSecondCurrency($event)"
-        ></custom-select>
-      </div>
-    </div>
-  </div>
-</ng-template>
+<app-board
+  [title]="'Curenncy'"
+  [data]="dataCurrencyRate"
+  [loading]="loadingCurrency"
+></app-board>
+<app-board
+  [title]="'Crypto Currency'"
+  [data]="dataCryproCurrencyRate"
+  [loading]="loadingCrypto"
+></app-board>

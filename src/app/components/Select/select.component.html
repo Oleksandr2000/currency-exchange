@@ -4,6 +4,7 @@
   [id]="name"
   (change)="changeValue($event)"
 >
+  <option>Selct the Currency</option>
   <option
     *ngFor="let currency of currencyList; let i = index"
     [value]="currency.rate"

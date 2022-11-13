@@ -1,79 +1,42 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
-import { currencyRate, CurrencyService } from './services/currency.service';
+import { Component, OnInit } from '@angular/core';
+import { CryptoService } from './services/crypto.service';
+import { CurrencyRate, CurrencyService } from './services/currency.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
-export class AppComponent implements OnInit, DoCheck {
-  data: currencyRate[];
-  loading: boolean = true;
-  firstCurrency: number;
-  secondCurrency: number;
-  firstCurrencyValue: number;
-  secondCurrencyValue: number;
-  isChangedFirstValue: boolean = false;
-  isChangedSecondValue: boolean = false;
+export class AppComponent implements OnInit {
+  dataCurrencyRate: CurrencyRate[];
+  dataCryproCurrencyRate: CurrencyRate[];
+  loadingCurrency: boolean = true;
+  loadingCrypto: boolean = true;
   eurCurrentRate: number;
   usdCurrentRate: number;
 
-  constructor(private currencyService: CurrencyService) {}
+  constructor(
+    private currencyService: CurrencyService,
+    private cryptoService: CryptoService
+  ) {}
 
   ngOnInit() {
-    this.currencyService.getAll().subscribe((data: currencyRate[]) => {
-      console.log(data);
-      this.data = data;
-      this.loading = false;
-
-      this.firstCurrency = this.data[0].rate;
-
-      this.secondCurrency = this.data[0].rate;
+    this.currencyService.getAll().subscribe((data: CurrencyRate[]) => {
+      this.dataCurrencyRate = data;
+      this.loadingCurrency = false;
 
       this.eurCurrentRate = data.filter((item) => item.cc == 'EUR')[0].rate;
+
       this.usdCurrentRate = data.filter((item) => item.cc == 'USD')[0].rate;
     });
-  }
 
-  ngDoCheck() {
-    if (this.isChangedFirstValue) {
-      this.handlerFirstRate();
-    }
-    if (this.isChangedSecondValue) {
-      this.handlerSecondRate();
-    }
-  }
-
-  saveFirstValue(value: number) {
-    this.firstCurrencyValue = value;
-    this.isChangedFirstValue = true;
-    this.isChangedSecondValue = false;
-  }
-
-  saveSecondValue(value: number) {
-    this.secondCurrencyValue = value;
-    this.isChangedFirstValue = false;
-    this.isChangedSecondValue = true;
-  }
-
-  saveFirstCurrency(value: number) {
-    this.firstCurrency = value;
-  }
-
-  saveSecondCurrency(value: number) {
-    this.secondCurrency = value;
-  }
-
-  handlerFirstRate() {
-    const calculatingValue =
-      (this.firstCurrency * this.firstCurrencyValue) / this.secondCurrency;
-
-    this.secondCurrencyValue = Number(calculatingValue.toFixed(2));
-  }
-
-  handlerSecondRate() {
-    const calculatingValue =
-      (this.secondCurrency * this.secondCurrencyValue) / this.firstCurrency;
-
-    this.firstCurrencyValue = Number(calculatingValue.toFixed(2));
+    this.cryptoService.getAll().subscribe((data: any) => {
+      this.dataCryproCurrencyRate = data.map((item: any) => {
+        return {
+          txt: item.name,
+          rate: item.price_usd,
+        };
+      });
+      this.loadingCrypto = false;
+    });
   }
 }

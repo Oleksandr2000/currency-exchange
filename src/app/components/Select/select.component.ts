@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { currencyRate } from 'src/app/services/currency.service';
+import { CurrencyRate } from 'src/app/services/currency.service';
 
 @Component({
   selector: 'custom-select',
@@ -11,7 +11,7 @@ export class SelectComponent {
   @Input()
   id: string;
   @Input()
-  currencyList: currencyRate[];
+  currencyList: CurrencyRate[];
   @Input()
   value: number;
 
